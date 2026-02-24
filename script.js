@@ -235,3 +235,78 @@ document.querySelectorAll('.creation-card, .character-card, .stat').forEach(elem
  */
 console.log('🏛️ Bem-vindo ao Persephone\'s House - The Sims 4 Creations');
 console.log('✨ Site desenvolvido com Bootstrap 5 e boas práticas de SEO');
+
+/**
+ * Gallery modal for folder-based galleries
+ * The mapping below lists all images inside `assets/Bela Grécia`.
+ */
+const galleryImages = {
+    'Bela Grécia': [
+        'assets/Bela Grécia/15-03-25_15-29-48.png',
+        'assets/Bela Grécia/15-03-25_15-30-07.png',
+        'assets/Bela Grécia/15-03-25_15-29-54.png',
+        'assets/Bela Grécia/15-03-25_15-30-26.png',
+        'assets/Bela Grécia/15-03-25_15-29-31.png',
+        'assets/Bela Grécia/15-03-25_15-29-21.png',
+        'assets/Bela Grécia/15-03-25_15-29-12.png',
+        'assets/Bela Grécia/15-03-25_15-29-07.png',
+        'assets/Bela Grécia/15-03-25_15-28-52.png',
+        'assets/Bela Grécia/15-03-25_15-28-38.png',
+        'assets/Bela Grécia/15-03-25_15-28-26.png',
+        'assets/Bela Grécia/15-03-25_15-28-15.png',
+        'assets/Bela Grécia/15-03-25_15-28-06.png',
+        'assets/Bela Grécia/15-03-25_15-27-48.png',
+        'assets/Bela Grécia/15-03-25_15-27-36.png',
+        'assets/Bela Grécia/15-03-25_15-27-18.png',
+        'assets/Bela Grécia/15-03-25_15-27-08.png',
+        'assets/Bela Grécia/15-03-25_15-26-59.png',
+        'assets/Bela Grécia/15-03-25_15-26-40.png',
+        'assets/Bela Grécia/15-03-25_15-26-26.png',
+        'assets/Bela Grécia/15-03-25_15-26-16.png',
+        'assets/Bela Grécia/15-03-25_15-25-39.png',
+        'assets/Bela Grécia/15-03-25_15-34-22.png',
+        'assets/Bela Grécia/15-03-25_15-34-12.png',
+        'assets/Bela Grécia/15-03-25_15-33-46.png',
+        'assets/Bela Grécia/15-03-25_15-33-39.png',
+        'assets/Bela Grécia/15-03-25_15-33-14.png',
+        'assets/Bela Grécia/15-03-25_15-32-50.png',
+        'assets/Bela Grécia/15-03-25_15-32-21.png',
+        'assets/Bela Grécia/15-03-25_15-32-16.png',
+        'assets/Bela Grécia/15-03-25_15-32-07.png',
+        'assets/Bela Grécia/15-03-25_15-31-45.png',
+        'assets/Bela Grécia/15-03-25_15-31-35.png',
+        'assets/Bela Grécia/15-03-25_15-31-24.png',
+        'assets/Bela Grécia/15-03-25_15-31-15.png',
+        'assets/Bela Grécia/15-03-25_15-31-05.png',
+        'assets/Bela Grécia/15-03-25_15-30-45.png',
+        'assets/Bela Grécia/15-03-25_15-30-37.png'
+    ]
+};
+
+function openGallery(folder) {
+    const images = galleryImages[folder] || [];
+    if (!images.length) {
+        alert('Nenhuma imagem encontrada para ' + folder);
+        return;
+    }
+
+    const inner = document.getElementById('galleryInner');
+    inner.innerHTML = images.map((src, idx) => {
+        return `<div class="carousel-item ${idx === 0 ? 'active' : ''}"><img src="${src}" class="d-block w-100" alt="${folder} - ${idx + 1}"></div>`;
+    }).join('');
+
+    const carouselEl = document.getElementById('galleryCarousel');
+    const carousel = bootstrap.Carousel.getOrCreateInstance(carouselEl, { interval: false });
+    carousel.to(0);
+
+    const modal = new bootstrap.Modal(document.getElementById('galleryModal'));
+    modal.show();
+}
+
+// Attach handlers to elements with data-gallery
+document.querySelectorAll('[data-gallery]').forEach(el => {
+    el.addEventListener('click', (e) => {
+        const folder = el.dataset.gallery;
+        openGallery(folder);
+    });
+});
