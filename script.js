@@ -280,6 +280,19 @@ const galleryImages = {
         'assets/Bela Grécia/15-03-25_15-31-05.png',
         'assets/Bela Grécia/15-03-25_15-30-45.png',
         'assets/Bela Grécia/15-03-25_15-30-37.png'
+    ],
+    'Vila de Athena': [
+        'assets/Vila de Athena/15-02-25_20-37-41.png',
+        'assets/Vila de Athena/15-02-25_20-38-41.png',
+        'assets/Vila de Athena/15-02-25_20-40-24.png',
+        'assets/Vila de Athena/17-02-25_19-36-29.png',
+        'assets/Vila de Athena/17-02-25_19-37-18.png',
+        'assets/Vila de Athena/17-02-25_19-39-10.png',
+        'assets/Vila de Athena/17-02-25_19-39-22.png'
+    ],
+    'Palácio de Persephone': [
+        'assets/Palácio de Persephone/Palacio de Persephone.png',
+        'assets/Palácio de Persephone/Config.png'
     ]
 };
 
@@ -310,3 +323,41 @@ document.querySelectorAll('[data-gallery]').forEach(el => {
         openGallery(folder);
     });
 });
+
+/**
+ * Toggle para mostrar/ocultar os 20 cards adicionais
+ */
+const toggleMoreCardsBtn = document.getElementById('toggleMoreCards');
+const hideMoreCardsBtn = document.getElementById('hideMoreCards');
+const moreCardsContainer = document.getElementById('moreCardsContainer');
+
+function showMoreCards() {
+    if (moreCardsContainer) {
+        moreCardsContainer.style.display = 'block';
+        
+        // Scroll suave até o primeiro card oculto
+        setTimeout(() => {
+            moreCardsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+    }
+}
+
+function hideMoreCards() {
+    if (moreCardsContainer) {
+        moreCardsContainer.style.display = 'none';
+    }
+}
+
+if (toggleMoreCardsBtn) {
+    toggleMoreCardsBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        showMoreCards();
+    });
+}
+
+if (hideMoreCardsBtn) {
+    hideMoreCardsBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        hideMoreCards();
+    });
+}
